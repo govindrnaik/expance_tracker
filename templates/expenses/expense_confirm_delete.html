@@ -8,7 +8,7 @@
                 <h2 class="card-title">Confirm Delete</h2>
             </div>
             <div class="card-body">
-                <p>Are you sure you want to delete the expense from <strong>{{ expense.date }}</strong> for <strong>₹{{
+                <p>Are you sure you want to delete the expense from <strong>{{ expense.date }}</strong> for <strong>₹ {{
                         expense.amount }}</strong>?</p>
                 <form method="post">
                     {% csrf_token %}
