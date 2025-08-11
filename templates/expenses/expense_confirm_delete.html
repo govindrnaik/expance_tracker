@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card text-center">
+            <div class="card-header">
+                <h2 class="card-title">Confirm Delete</h2>
+            </div>
+            <div class="card-body">
+                <p>Are you sure you want to delete the expense from <strong>{{ expense.date }}</strong> for <strong>₹{{
+                        expense.amount }}</strong>?</p>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="d-grid gap-2 d-md-flex justify-content-center">
+                        <a href="{% url 'expense_list' %}" class="btn btn-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-danger">Confirm Delete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

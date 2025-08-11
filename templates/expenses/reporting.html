@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">Reporting Dashboard</h2>
+    <a href="{% url 'expense_list' %}" class="btn btn-secondary">Back to Expenses</a>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        Expenses by Category
+    </div>
+    <div class="card-body">
+        {% if chart_div %}
+        <div class="plotly-chart-container">
+            {{ chart_div|safe }}
+        </div>
+        {% else %}
+        <div class="text-center">
+            <p>No expense data available to generate a report.</p>
+            <a href="{% url 'expense_create' %}" class="btn btn-primary">Add Your First Expense</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

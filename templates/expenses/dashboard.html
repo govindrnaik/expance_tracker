@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4 text-center">Expense Dashboard</h1>
+
+    {% if category_chart_div and time_chart_div %}
+    <div class="row mb-4">
+        <div class="col">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Total Expenses</h5>
+                    <p class="card-text display-4">₹{{ total_expenses|floatformat:2 }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if include_plotly_js %}
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    {% endif %}
+    <div class="row">
+        <div class="col-lg-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    {{ category_chart_div|safe }}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    {{ time_chart_div|safe }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="alert alert-info" role="alert">
+        You don't have any expenses recorded yet. <a href="{% url 'expense_create' %}" class="alert-link">Add one</a> to
+        see your dashboard.
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

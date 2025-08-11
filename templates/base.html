@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            transition: background-color 0.3s, color 0.3s;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'expense_list' %}">ExpenseTracker</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'expense_list' %}">My Expenses</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+                    </li>
+                    {% endif %}
+                </ul>
+                <ul class="navbar-nav">
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <span class="navbar-text me-2">Welcome, {{ user.username }}</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-outline-danger" href="{% url 'users:logout' %}">Logout</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'users:login' %}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-primary" href="{% url 'users:register' %}">Register</a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item ms-2 d-flex align-items-center">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="darkModeSwitch">
+                            <label class="form-check-label" for="darkModeSwitch">Dark Mode</label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mt-4">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const darkModeSwitch = document.getElementById('darkModeSwitch');
+        const htmlElement = document.documentElement;
+
+        function setCookie(name, value, days) {
+            let expires = "";
+            if (days) {
+                const date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+        }
+
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                htmlElement.setAttribute('data-bs-theme', 'dark');
+                darkModeSwitch.checked = true;
+            } else {
+                htmlElement.setAttribute('data-bs-theme', 'light');
+                darkModeSwitch.checked = false;
+            }
+        }
+
+        // Set initial theme based on localStorage or cookie
+        const savedTheme = localStorage.getItem('bsTheme') || 'light';
+        applyTheme(savedTheme);
+        setCookie('theme', savedTheme, 365);
+
+
+        darkModeSwitch.addEventListener('change', function () {
+            const theme = this.checked ? 'dark' : 'light';
+            localStorage.setItem('bsTheme', theme);
+            setCookie('theme', theme, 365); // Set cookie for Django
+            applyTheme(theme);
+            // Optional: Force a page reload if charts need to re-render
+            if (window.location.pathname.includes('/reporting')) {
+                window.location.reload();
+            }
+        });
+    </script>
+</body>
+
+</html>
