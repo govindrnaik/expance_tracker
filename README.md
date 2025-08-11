@@ -4,16 +4,19 @@ A personal expense tracker Django project for locally storing and recording dail
 
 ## Features
 
-* **Record Daily Expenses:** Easily add and manage your daily expenses.
+* **User Authentication:** Secure user registration and login system.
+* **Full CRUD Functionality:** Create, Read, Update, and Delete expenses.
 * **Categorize Expenses:** Organize your expenses into different categories for better tracking.
+* **Dashboard:** Provides an overview and analysis of your expenses with charts and summaries.
 * **View Reports:** Visualize your spending with daily, weekly, and monthly reports.
 * **Dual Database System:** Uses a public Google Sheet as the primary database and a local SQLite database for backup.
 
 ## Core Applications
 
 * **Dashboard:** Provides an overview and analysis of your expenses with charts and summaries.
-* **Expense Entry:** A simple form to quickly add new expenses.
-* **Reports:** Generate detailed reports of your spending habits over time.
+* **Expenses:** Full CRUD functionality for managing expenses.
+* **Reports:** Generate detailed reports of your spending habits.
+* **Users:** Handles user registration and authentication.
 
 ## Software Stack
 
@@ -23,12 +26,10 @@ A personal expense tracker Django project for locally storing and recording dail
 
 ## To-Do List
 
-* [ ] User authentication system.
-* [ ] Implement full CRUD (Create, Read, Update, Delete) functionality for expenses.
-* [ ] Integrate with the Google Sheets API for data synchronization.
-* [ ] Develop different report views (e.g., by category, by date range).
-* [ ] Enhance the frontend with a modern UI/UX.
-* [ ] Add data visualization with charts and graphs.
+* [ ] Enhance the frontend with a more modern UI/UX.
+* [ ] Add more advanced reporting features (e.g., filtering by date range, exporting to CSV).
+* [ ] Implement password reset functionality.
+* [ ] Write comprehensive tests.
 
 ## Prerequisites
 
@@ -43,20 +44,13 @@ This project uses [uv](https://github.com/astral-sh/uv) for Python packaging and
     cd expance_tracker
     ```
 
-2. **Create and activate a virtual environment using `uv`:**
+2. **Sync dependencies using `uv`:**
 
     ```bash
-    uv venv
-    source .venv/bin/activate  # On Windows use `.venv\Scripts\activate`
+    uv sync
     ```
 
-3. **Sync dependencies using `uv`:**
-
-    ```bash
-    uv pip sync requirements.txt
-    ```
-
-4. **Configure your database:**
+3. **Configure your database:**
     Create a `.env` file in the project root and add the public URL of your Google Sheet.
 
     ```
@@ -64,13 +58,13 @@ This project uses [uv](https://github.com/astral-sh/uv) for Python packaging and
     GOOGLE_SHEET_URL=your_public_google_sheet_link_here
     ```
 
-5. **Run database migrations for the local backup:**
+4. **Run database migrations for the local backup:**
 
     ```bash
     python manage.py migrate
     ```
 
-6. **Start the development server:**
+5. **Start the development server:**
 
     ```bash
     python manage.py runserver

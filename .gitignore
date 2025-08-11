@@ -1,5 +1,5 @@
 credentials.json
-
+google_sheets_test.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -208,3 +208,4 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+google_sheets_test.py 
