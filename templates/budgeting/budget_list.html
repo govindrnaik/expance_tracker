@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Budgets{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Budgets</h2>
+        <a href="{% url 'budgeting:budget_create' %}" class="btn btn-primary">Add New Budget</a>
+    </div>
+    <ul class="list-group">
+        {% for budget in budgets %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ budget.category.name }} - {{ budget.year }}-{{ budget.month|stringformat:"02d" }} - ${{ budget.amount }}
+            <div>
+                <a href="{% url 'budgeting:budget_update' budget.pk %}" class="btn btn-sm btn-info">Edit</a>
+                <a href="{% url 'budgeting:budget_delete' budget.pk %}" class="btn btn-sm btn-danger">Delete</a>
+            </div>
+        </li>
+        {% empty %}
+        <li class="list-group-item">No budgets found.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

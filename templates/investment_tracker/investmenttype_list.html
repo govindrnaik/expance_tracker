@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Investment Types{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Investment Types</h2>
+        <a href="{% url 'investment_tracker:investmenttype_create' %}" class="btn btn-primary">Add New Investment
+            Type</a>
+    </div>
+    <ul class="list-group">
+        {% for type in investment_types %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ type.name }}
+            <div>
+                <a href="{% url 'investment_tracker:investmenttype_update' type.pk %}"
+                    class="btn btn-sm btn-info">Edit</a>
+                <a href="{% url 'investment_tracker:investmenttype_delete' type.pk %}"
+                    class="btn btn-sm btn-danger">Delete</a>
+            </div>
+        </li>
+        {% empty %}
+        <li class="list-group-item">No investment types found.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

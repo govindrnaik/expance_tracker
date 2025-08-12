@@ -1,0 +1,37 @@
+<!-- d:\govind_data\playground\expance_tracker\templates\income\income_list.html -->
+{% extends 'base.html' %}
+
+{% block title %}Income List{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Income</h1>
+    <a href="{% url 'income:income_create' %}" class="btn btn-primary mb-3">Add Income</a>
+    <a href="{% url 'income:source_list' %}" class="btn btn-secondary mb-3">Manage Sources</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Source</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for income in incomes %}
+            <tr>
+                <td>{{ income.source.name }}</td>
+                <td>₹{{ income.amount|floatformat:2 }}</td>
+                <td>{{ income.date }}</td>
+                <td>{{ income.description }}</td>
+                <td>
+                    <a href="{% url 'income:income_update' income.pk %}" class="btn btn-sm btn-warning">Edit</a>
+                    <a href="{% url 'income:income_delete' income.pk %}" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

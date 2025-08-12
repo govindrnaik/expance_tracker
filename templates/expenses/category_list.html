@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Categories - Expense Tracker{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Categories</h2>
+        <a href="{% url 'expenses:category_create' %}" class="btn btn-primary">Add Category</a>
+    </div>
+    <ul class="list-group">
+        {% for category in categories %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ category.name }}
+            <div>
+                <a href="{% url 'expenses:category_update' category.pk %}" class="btn btn-sm btn-info">Edit</a>
+                <a href="{% url 'expenses:category_delete' category.pk %}" class="btn btn-sm btn-danger">Delete</a>
+            </div>
+        </li>
+        {% empty %}
+        <li class="list-group-item">No categories found.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

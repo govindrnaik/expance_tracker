@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Investments{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Investments</h2>
+        <a href="{% url 'investment_tracker:investment_create' %}" class="btn btn-primary">Add New Investment</a>
+    </div>
+    <div class="list-group">
+        {% for investment in investments %}
+        <div class="list-group-item">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{ investment.investment_type.name }} on {{ investment.platform.name }}</h5>
+                <small>{{ investment.date|date:"Y-m-d" }}</small>
+            </div>
+            <p class="mb-1">Amount: ${{ investment.amount }}</p>
+            {% if investment.payment_method %}
+            <p class="mb-1">Payment Method: {{ investment.payment_method.name }}</p>
+            {% endif %}
+            <p class="mb-1">Description: {{ investment.description }}</p>
+            <div>
+                <a href="{% url 'investment_tracker:investment_update' investment.pk %}"
+                    class="btn btn-sm btn-info">Edit</a>
+                <a href="{% url 'investment_tracker:investment_delete' investment.pk %}"
+                    class="btn btn-sm btn-danger">Delete</a>
+            </div>
+        </div>
+        {% empty %}
+        <p class="list-group-item">No investments found.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

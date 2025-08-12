@@ -14,6 +14,16 @@ The application is built with a robust set of features to provide a comprehensiv
   * Users can create, view, update, and delete their expenses.
   * An intuitive interface for managing expense records.
 
+* [x] **Detailed Expense Entry**
+  * Each expense entry will include:
+    * Date and Time
+    * Category (user-created)
+    * Sub-category (free text)
+    * Description
+    * Amount
+    * Expiry Date
+    * Payment Mode (user-created)
+
 * [x] **Dynamic, Interactive Reporting**
   * A reporting dashboard with an interactive bar chart visualizing expenses by category.
   * Built with Plotly for a rich, engaging user experience.
@@ -39,15 +49,35 @@ The application is built with a robust set of features to provide a comprehensiv
 
 ## Project Status
 
-| Feature                       | Status | Notes                                                              |
-| ----------------------------- | ------ | ------------------------------------------------------------------ |
-| User Authentication           | `Done` | Secure registration, login, and logout.                            |
-| Expense CRUD                  | `Done` | Full create, read, update, and delete functionality for expenses.  |
-| Google Sheets Integration     | `Done` | Robust, per-user syncing with automatic header and data management.|
-| Reporting & Visualization     | `Done` | Interactive, theme-aware charts using Plotly.                      |
-| UI/UX and Dark Mode           | `Done` | Modern, responsive design with Bootstrap 5 and a dark mode toggle. |
-| **Overall Project**           | `Done` | All core features are implemented and polished.                    |
+| Feature | Status | Notes |
+| --- | --- | --- |
+| User Authentication | `Done` | Secure registration, login, and logout. |
+| Expense CRUD | `Done` | Full create, read, update, and delete functionality for expenses. |
+| Category Management | `Done` | Users can create and manage their own expense categories. |
+| Payment Method Management | `Done` | Users can create and manage their own payment methods. |
+| Detailed Expense Entry | `Done` | Expanding expense model with more detailed fields. |
+| Google Sheets Integration | `Done` | Robust, per-user syncing with automatic header and data management. |
+| Reporting & Visualization | `Done` | Interactive, theme-aware charts using Plotly. |
+| UI/UX and Dark Mode | `Done` | Modern, responsive design with Bootstrap 5 and a dark mode toggle. |
+| **Overall Project** | `In Progress` | Core features are implemented, new features are in development. |
 
 ---
 
 This project was developed step-by-step, ensuring each feature was built, tested, and refined before moving to the next.
+
+## Future Development
+
+Here are the planned features and enhancements for future releases:
+
+* **Enhance Payment Methods:**
+  * [x] Add a `description` field to the `PaymentMethod` model to store additional details.
+
+* **New Applications:**
+  * [ ] **Investment Tracker:** A flexible app to track investments.
+    * [ ] Create `Platform` model for users to manage their investment platforms (e.g., Fidelity, Coinbase).
+    * [ ] Create `InvestmentType` model for users to manage different types of investments (e.g., Stocks, Crypto).
+    * [ ] Create `Investment` model to log individual investment transactions.
+    * [ ] Implement full CRUD functionality for Platforms, Investment Types, and Investments.
+    * [ ] Build the user interface for managing all aspects of the investment tracker.
+  * [ ] **Debt Tracker:** An application to manage and monitor outstanding debts, such as loans and credit card balances.
+  * [ ] **Budgeting Tool:** A comprehensive budgeting app to help users set financial goals and track their progress.

@@ -4,8 +4,8 @@
 <div class="d-flex justify-content-between align-items-center mb-3">
     <h2 class="mb-0">My Expenses</h2>
     <div class="btn-group">
-        <a href="{% url 'expense_create' %}" class="btn btn-primary">Add New Expense</a>
-        <a href="{% url 'sync_google_sheet' %}" class="btn btn-outline-success">Sync to Google Sheets</a>
+        <a href="{% url 'expenses:expense_create' %}" class="btn btn-primary">Add New Expense</a>
+        <a href="{% url 'expenses:sync_google_sheet' %}" class="btn btn-outline-success">Sync to Google Sheets</a>
     </div>
 </div>
 
@@ -31,9 +31,9 @@
                         <td>₹{{ expense.amount }}</td>
                         <td>{{ expense.description|truncatewords:10 }}</td>
                         <td>
-                            <a href="{% url 'expense_update' expense.pk %}"
+                            <a href="{% url 'expenses:expense_update' expense.pk %}"
                                 class="btn btn-sm btn-outline-primary">Edit</a>
-                            <a href="{% url 'expense_delete' expense.pk %}"
+                            <a href="{% url 'expenses:expense_delete' expense.pk %}"
                                 class="btn btn-sm btn-outline-danger">Delete</a>
                         </td>
                     </tr>

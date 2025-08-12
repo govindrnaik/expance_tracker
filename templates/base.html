@@ -16,7 +16,7 @@
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'expense_list' %}">ExpenseTracker</a>
+            <a class="navbar-brand" href="{% url 'expenses:expense_list' %}">ExpenseTracker</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -25,14 +25,40 @@
                 <ul class="navbar-nav me-auto">
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'expense_list' %}">My Expenses</a>
+                        <a class="nav-link" href="{% url 'expenses:dashboard' %}">Dashboard</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="expensesDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Expenses
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="expensesDropdown">
+                            <li><a class="dropdown-item" href="{% url 'expenses:expense_list' %}">My Expenses</a></li>
+                            <li><a class="dropdown-item" href="{% url 'expenses:category_list' %}">Categories</a></li>
+                            <li><a class="dropdown-item" href="{% url 'expenses:paymentmethod_list' %}">Payment
+                                    Methods</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+                        <a class="nav-link" href="{% url 'income:income_list' %}">Income</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="investmentsDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Investments
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="investmentsDropdown">
+                            <li><a class="dropdown-item"
+                                    href="{% url 'investment_tracker:investment_list' %}">Dashboard</a></li>
+                            <li><a class="dropdown-item"
+                                    href="{% url 'investment_tracker:investmenttype_list' %}">Types</a></li>
+                            <li><a class="dropdown-item"
+                                    href="{% url 'investment_tracker:platform_list' %}">Platforms</a></li>
+                        </ul>
                     </li>
                     {% endif %}
                 </ul>
-                <ul class="navbar-nav">
+                <ul class="navbar-nav ms-auto">
                     {% if user.is_authenticated %}
                     <li class="nav-item">
                         <span class="navbar-text me-2">Welcome, {{ user.username }}</span>
@@ -82,14 +108,62 @@
             document.cookie = name + "=" + (value || "") + expires + "; path=/";
         }
 
+        function updatePlotlyCharts(theme) {
+            if (typeof Plotly === 'undefined') {
+                return;
+            }
+
+            const plotlyCharts = document.querySelectorAll('.js-plotly-plot');
+            if (plotlyCharts.length === 0) {
+                return;
+            }
+
+            const layoutUpdate = theme === 'dark' ?
+                {
+                    'paper_bgcolor': '#212529',
+                    'plot_bgcolor': '#212529',
+                    'font.color': '#f8f9fa',
+                    'title.font.color': '#f8f9fa',
+                    'legend.font.color': '#f8f9fa',
+                    'xaxis.gridcolor': '#495057',
+                    'yaxis.gridcolor': '#495057',
+                    'xaxis.linecolor': '#f8f9fa',
+                    'yaxis.linecolor': '#f8f9fa',
+                    'xaxis.tickfont.color': '#f8f9fa',
+                    'yaxis.tickfont.color': '#f8f9fa',
+                    'xaxis.title.font.color': '#f8f9fa',
+                    'yaxis.title.font.color': '#f8f9fa',
+                } :
+                {
+                    'paper_bgcolor': '#fff',
+                    'plot_bgcolor': '#fff',
+                    'font.color': '#212529',
+                    'title.font.color': '#212529',
+                    'legend.font.color': '#212529',
+                    'xaxis.gridcolor': '#dee2e6',
+                    'yaxis.gridcolor': '#dee2e6',
+                    'xaxis.linecolor': '#212529',
+                    'yaxis.linecolor': '#212529',
+                    'xaxis.tickfont.color': '#212529',
+                    'yaxis.tickfont.color': '#212529',
+                    'xaxis.title.font.color': '#212529',
+                    'yaxis.title.font.color': '#212529',
+                };
+
+            plotlyCharts.forEach(chartElement => {
+                Plotly.relayout(chartElement, layoutUpdate);
+            });
+        }
+
         function applyTheme(theme) {
             if (theme === 'dark') {
                 htmlElement.setAttribute('data-bs-theme', 'dark');
-                darkModeSwitch.checked = true;
+                if (darkModeSwitch) darkModeSwitch.checked = true;
             } else {
                 htmlElement.setAttribute('data-bs-theme', 'light');
-                darkModeSwitch.checked = false;
+                if (darkModeSwitch) darkModeSwitch.checked = false;
             }
+            updatePlotlyCharts(theme);
         }
 
         // Set initial theme based on localStorage or cookie
@@ -98,16 +172,14 @@
         setCookie('theme', savedTheme, 365);
 
 
-        darkModeSwitch.addEventListener('change', function () {
-            const theme = this.checked ? 'dark' : 'light';
-            localStorage.setItem('bsTheme', theme);
-            setCookie('theme', theme, 365); // Set cookie for Django
-            applyTheme(theme);
-            // Optional: Force a page reload if charts need to re-render
-            if (window.location.pathname.includes('/reporting')) {
-                window.location.reload();
-            }
-        });
+        if (darkModeSwitch) {
+            darkModeSwitch.addEventListener('change', function () {
+                const theme = this.checked ? 'dark' : 'light';
+                localStorage.setItem('bsTheme', theme);
+                setCookie('theme', theme, 365); // Set cookie for Django
+                applyTheme(theme);
+            });
+        }
     </script>
 </body>
 
