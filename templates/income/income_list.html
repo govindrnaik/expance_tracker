@@ -5,9 +5,11 @@
 
 {% block content %}
 <div class="container mt-4">
-    <h1 class="mb-4">Income</h1>
-    <a href="{% url 'income:income_create' %}" class="btn btn-primary mb-3">Add Income</a>
-    <a href="{% url 'income:source_list' %}" class="btn btn-secondary mb-3">Manage Sources</a>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="mb-0">Income</h2>
+        <a href="{% url 'income:income_create' %}" class="btn btn-primary">Add New Income</a>
+    </div>
+
     <table class="table table-striped">
         <thead>
             <tr>

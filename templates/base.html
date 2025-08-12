@@ -39,8 +39,15 @@
                                     Methods</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'income:income_list' %}">Income</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="incomeDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Income
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="incomeDropdown">
+                            <li><a class="dropdown-item" href="{% url 'income:income_list' %}">My Income</a></li>
+                            <li><a class="dropdown-item" href="{% url 'income:source_list' %}">Manage Sources</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="investmentsDropdown" role="button"
@@ -48,26 +55,38 @@
                             Investments
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="investmentsDropdown">
-                            <li><a class="dropdown-item"
-                                    href="{% url 'investment_tracker:investment_list' %}">Dashboard</a></li>
+                            <li><a class="dropdown-item" href="{% url 'investment_tracker:investment_list' %}">My
+                                    Investments</a></li>
                             <li><a class="dropdown-item"
                                     href="{% url 'investment_tracker:investmenttype_list' %}">Types</a></li>
                             <li><a class="dropdown-item"
                                     href="{% url 'investment_tracker:platform_list' %}">Platforms</a></li>
                         </ul>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'budgeting:budget_list' %}">Budgeting</a>
+                    </li>
                     {% endif %}
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <span class="navbar-text me-2">Welcome, {{ user.username }}</span>
-                    </li>
-                    <li class="nav-item">
-                        <form method="post" action="{% url 'users:logout' %}" class="d-inline">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-outline-danger">Logout</button>
-                        </form>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Welcome, {{ user.username }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="{% url 'settings:settings' %}">Settings</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <form method="post" action="{% url 'users:logout' %}" class="d-inline">
+                                    {% csrf_token %}
+                                    <button type="submit" class="dropdown-item">Logout</button>
+                                </form>
+                            </li>
+                        </ul>
                     </li>
                     {% else %}
                     <li class="nav-item">

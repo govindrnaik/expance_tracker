@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "investment_tracker",
     "debt_tracker",
     "income",
+    "settings",
 ]
 
 MIDDLEWARE = [

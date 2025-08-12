@@ -81,3 +81,6 @@ Here are the planned features and enhancements for future releases:
     * [ ] Build the user interface for managing all aspects of the investment tracker.
   * [ ] **Debt Tracker:** An application to manage and monitor outstanding debts, such as loans and credit card balances.
   * [ ] **Budgeting Tool:** A comprehensive budgeting app to help users set financial goals and track their progress.
+  * [x] **Settings Page:** A dedicated page for users to configure application settings.
+    * [ ] Add an option to manage database credentials.
+    * [x] Add an option to change the linked Google Sheet URL.
