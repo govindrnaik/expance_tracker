@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="mb-0">My Debts</h2>
+        <a href="{% url 'debt_tracker:debt_create' %}" class="btn btn-primary">Add New Debt</a>
+    </div>
+
+    {% for debt in debts %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">{{ debt.name }}</h5>
+            <p class="card-text">
+                <strong>Total:</strong> ₹{{ debt.total_amount }} |
+                <strong>Paid:</strong> ₹{{ debt.amount_paid }} |
+                <strong>Remaining:</strong> ₹{{ debt.remaining_amount }}
+            </p>
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: {{ debt.progress_percentage }}%;"
+                    aria-valuenow="{{ debt.progress_percentage }}" aria-valuemin="0" aria-valuemax="100">
+                    {{ debt.progress_percentage|floatformat:2 }}%
+                </div>
+            </div>
+            <a href="{% url 'debt_tracker:debt_detail' debt.pk %}" class="btn btn-sm btn-outline-primary mt-3">View
+                Details</a>
+        </div>
+    </div>
+    {% empty %}
+    <p>You have no debts. <a href="{% url 'debt_tracker:debt_create' %}">Add one now!</a></p>
+    {% endfor %}
+</div>
+{% endblock %}

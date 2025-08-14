@@ -18,6 +18,7 @@ A personal expense tracker Django project for locally storing and recording dail
 * **Expenses:** Full CRUD functionality for managing expenses, categories, and payment methods.
 * **Reports:** Generate detailed reports of your spending habits.
 * **Users:** Handles user registration and authentication.
+* **Debt Tracker:** An application to manage and monitor outstanding debts, such as loans and credit card balances.
 
 ## Software Stack
 
@@ -37,6 +38,7 @@ A personal expense tracker Django project for locally storing and recording dail
 * [ ] Add more advanced reporting features (e.g., filtering by date range, exporting to CSV).
 * [ ] Implement password reset functionality.
 * [ ] Write comprehensive tests.
+* [ ] **Debt Tracker:** An application to manage and monitor outstanding debts, such as loans and credit card balances.
 
 ## Prerequisites
 

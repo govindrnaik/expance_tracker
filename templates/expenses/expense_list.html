@@ -42,7 +42,8 @@
             </table>
         </div>
         {% else %}
-        <p class="text-center">You haven't added any expenses yet. <a href="{% url 'expense_create' %}">Add one now!</a>
+        <p class="text-center">You haven't added any expenses yet. <a href="{% url 'expenses:expense_create' %}">Add one
+                now!</a>
         </p>
         {% endif %}
     </div>

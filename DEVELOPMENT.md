@@ -80,6 +80,10 @@ Here are the planned features and enhancements for future releases:
     * [ ] Implement full CRUD functionality for Platforms, Investment Types, and Investments.
     * [ ] Build the user interface for managing all aspects of the investment tracker.
   * [ ] **Debt Tracker:** An application to manage and monitor outstanding debts, such as loans and credit card balances.
+    * [x] Create `Debt` model with fields for name, total amount, amount paid, interest rate, and due date.
+    * [x] Implement full CRUD functionality for debts.
+    * [x] Create a view to list all debts with progress bars.
+    * [x] Create a detail view to show debt information and payment history.
   * [ ] **Budgeting Tool:** A comprehensive budgeting app to help users set financial goals and track their progress.
   * [x] **Settings Page:** A dedicated page for users to configure application settings.
     * [ ] Add an option to manage database credentials.

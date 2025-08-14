@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="container">
+    <h2>Add Payment for {{ debt.name }}</h2>
+    <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="mb-3">
+            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+            {{ field|add_class:"form-control" }}
+        </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary">Save Payment</button>
+    </form>
+</div>
+{% endblock %}

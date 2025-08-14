@@ -83,7 +83,8 @@
     </div>
     {% else %}
     <div class="alert alert-info" role="alert">
-        You don't have any expenses recorded yet. <a href="{% url 'expense_create' %}" class="alert-link">Add one</a> to
+        You don't have any expenses recorded yet. <a href="{% url 'expenses:expense_create' %}" class="alert-link">Add
+            one</a> to
         see your dashboard.
     </div>
     {% endif %}

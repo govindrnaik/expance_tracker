@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>{{ debt.name }}</h2>
+    <p>
+        <strong>Total Amount:</strong> ₹{{ debt.total_amount }}<br>
+        <strong>Amount Paid:</strong> ₹{{ debt.amount_paid }}<br>
+        <strong>Remaining Amount:</strong> ₹{{ debt.remaining_amount }}<br>
+        <strong>Interest Rate:</strong> {{ debt.interest_rate }}%<br>
+        <strong>Due Date:</strong> {{ debt.due_date|date:"Y-m-d" }}
+    </p>
+
+    <div class="progress mb-3">
+        <div class="progress-bar" role="progressbar" style="width: {{ debt.progress_percentage }}%;"
+            aria-valuenow="{{ debt.progress_percentage }}" aria-valuemin="0" aria-valuemax="100">
+            {{ debt.progress_percentage|floatformat:2 }}%
+        </div>
+    </div>
+
+    <a href="{% url 'debt_tracker:debt_update' debt.pk %}" class="btn btn-primary">Edit Debt</a>
+    <a href="{% url 'debt_tracker:debt_delete' debt.pk %}" class="btn btn-danger">Delete Debt</a>
+    <a href="{% url 'debt_tracker:add_payment' debt.pk %}" class="btn btn-success">Add Payment</a>
+
+    <hr>
+
+    <h3>Payment History</h3>
+    <ul class="list-group">
+        {% for payment in debt.payments.all %}
+        <li class="list-group-item">
+            ₹{{ payment.amount }} on {{ payment.date|date:"Y-m-d" }}
+        </li>
+        {% empty %}
+        <li class="list-group-item">No payments made yet.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

@@ -32,7 +32,7 @@ def expense_create(request):
             expense.user = request.user
             expense.save()
             add_expense_to_sheet(expense)
-            return redirect("expense_list")
+            return redirect("expenses:expense_list")
     else:
         form = ExpenseForm(user=request.user)
     return render(request, "expenses/expense_form.html", {"form": form})
@@ -48,7 +48,7 @@ def expense_update(request, pk):
             sync_expenses_to_sheet(
                 request.user, Expense.objects.filter(user=request.user)
             )
-            return redirect("expense_list")
+            return redirect("expenses:expense_list")
     else:
         form = ExpenseForm(instance=expense, user=request.user)
     return render(request, "expenses/expense_form.html", {"form": form})
@@ -60,7 +60,7 @@ def expense_delete(request, pk):
     if request.method == "POST":
         expense.delete()
         sync_expenses_to_sheet(request.user, Expense.objects.filter(user=request.user))
-        return redirect("expense_list")
+        return redirect("expenses:expense_list")
     return render(request, "expenses/expense_confirm_delete.html", {"expense": expense})
 
 
@@ -71,7 +71,7 @@ def sync_google_sheet_view(request):
     """
     expenses = Expense.objects.filter(user=request.user)
     sync_expenses_to_sheet(request.user, expenses)
-    return redirect("expense_list")
+    return redirect("expenses:expense_list")
 
 
 @login_required
@@ -217,7 +217,7 @@ class CategoryCreateView(LoginRequiredMixin, CreateView):
     model = Category
     form_class = CategoryForm
     template_name = "expenses/category_form.html"
-    success_url = reverse_lazy("category_list")
+    success_url = reverse_lazy("expenses:category_list")
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -228,7 +228,7 @@ class CategoryUpdateView(LoginRequiredMixin, UpdateView):
     model = Category
     form_class = CategoryForm
     template_name = "expenses/category_form.html"
-    success_url = reverse_lazy("category_list")
+    success_url = reverse_lazy("expenses:category_list")
 
     def get_queryset(self):
         return Category.objects.filter(user=self.request.user)
@@ -237,7 +237,7 @@ class CategoryUpdateView(LoginRequiredMixin, UpdateView):
 class CategoryDeleteView(LoginRequiredMixin, DeleteView):
     model = Category
     template_name = "expenses/category_confirm_delete.html"
-    success_url = reverse_lazy("category_list")
+    success_url = reverse_lazy("expenses:category_list")
 
     def get_queryset(self):
         return Category.objects.filter(user=self.request.user)
@@ -256,7 +256,7 @@ class PaymentMethodCreateView(LoginRequiredMixin, CreateView):
     model = PaymentMethod
     form_class = PaymentMethodForm
     template_name = "expenses/paymentmethod_form.html"
-    success_url = reverse_lazy("paymentmethod_list")
+    success_url = reverse_lazy("expenses:paymentmethod_list")
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -267,7 +267,7 @@ class PaymentMethodUpdateView(LoginRequiredMixin, UpdateView):
     model = PaymentMethod
     form_class = PaymentMethodForm
     template_name = "expenses/paymentmethod_form.html"
-    success_url = reverse_lazy("paymentmethod_list")
+    success_url = reverse_lazy("expenses:paymentmethod_list")
 
     def get_queryset(self):
         return PaymentMethod.objects.filter(user=self.request.user)
@@ -276,7 +276,7 @@ class PaymentMethodUpdateView(LoginRequiredMixin, UpdateView):
 class PaymentMethodDeleteView(LoginRequiredMixin, DeleteView):
     model = PaymentMethod
     template_name = "expenses/paymentmethod_confirm_delete.html"
-    success_url = reverse_lazy("paymentmethod_list")
+    success_url = reverse_lazy("expenses:paymentmethod_list")
 
     def get_queryset(self):
         return PaymentMethod.objects.filter(user=self.request.user)
